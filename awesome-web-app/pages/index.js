@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import fetch from 'isomorphic-unfetch'
 import Container from 'react-bootstrap/Container'
 
@@ -6,13 +7,18 @@ import Meme from '../components/meme'
 import { shuffle } from '../helpers/array'
 
 const Index = ({ memes }) => {
+    const [shuffledMemes, setShuffledMemes] = useState([])
+
+    useEffect(() => {
+        setShuffledMemes(shuffle(memes))
+    })
+
     return (
         <Layout>
             <div>
                 <h1>Welcome to my Awesome Web App</h1>
-                <h3>Memes List</h3>
                 <Container fluid>
-                    {shuffle(memes).map((meme) => {
+                    {shuffledMemes.map((meme) => {
                         return <Meme key={meme.id} meme={meme} />
                     })}
                 </Container>
