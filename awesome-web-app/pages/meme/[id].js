@@ -61,20 +61,10 @@ const Meme = ({ memes }) => {
     )
 }
 
-export async function getStaticProps() {
+Meme.getInitialProps = async function () {
     const response = await fetch(`https://api.imgflip.com/get_memes`)
     const result = await response.json()
-    return { props: { memes: result.data.memes } }
-}
-
-export async function getStaticPaths() {
-    const response = await fetch(`https://api.imgflip.com/get_memes`)
-    const result = await response.json()
-    const paths = result.data.memes.map((meme) => ({ params: { id: meme.id } }))
-    return {
-        paths,
-        fallback: false
-    }
+    return { memes: result.data.memes }
 }
 
 export default Meme

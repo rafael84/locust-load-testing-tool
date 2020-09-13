@@ -27,10 +27,10 @@ const Index = ({ memes }) => {
     )
 }
 
-export async function getStaticProps() {
+Index.getInitialProps = async function () {
     const response = await fetch(`https://api.imgflip.com/get_memes`)
     const result = await response.json()
-    return { props: { memes: result.data.memes } }
+    return { memes: result.data.memes }
 }
 
 export default Index
