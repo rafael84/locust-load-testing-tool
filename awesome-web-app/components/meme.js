@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 const Meme = ({ meme }) => {
     return (
-        <div className="container">
+        <div className="meme-card" memeId={meme.id}>
             <Link href="/meme/[id]" as={`/meme/${meme.id}`}>
                 <div>
                     <img src={meme.url} width={180} alt={meme.name} />
@@ -10,7 +10,7 @@ const Meme = ({ meme }) => {
                 </div>
             </Link>
             <style jsx>{`
-                div.container {
+                div.meme-card {
                     cursor: pointer;
                     background: rgba(0, 0, 0, 0.3);
                     border-radius: 8px;

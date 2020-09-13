@@ -29,15 +29,19 @@ const Meme = ({ memes }) => {
                     <h1>{meme.name}</h1>
                     <div className="buttons">
                         <Link href="/">
-                            <Button variant="primary">Back</Button>
+                            <Button className="back-button" variant="primary">
+                                Back
+                            </Button>
                         </Link>
                         <Button
+                            className="check-versions-link"
                             href={`https://imgflip.com/meme/${meme.id}`}
                             target="_blank"
                             variant="link">
                             Check versions in imgflip
                         </Button>
                         <Button
+                            className="create-my-version-link"
                             href={`https://imgflip.com/memegenerator/${meme.id}`}
                             target="_blank"
                             variant="link">
