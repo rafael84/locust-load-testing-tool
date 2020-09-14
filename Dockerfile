@@ -1,2 +1,2 @@
 FROM locustio/locust
-RUN pip3 install bs4 ipython
+RUN pip3 install selenium bs4 requests ipython

@@ -1,16 +1,23 @@
 version: '3'
 
 services:
-  master:
+  webdriver:
+    image: robcherry/docker-chromedriver:latest
+    environment:
+      - CHROMEDRIVER_WHITELISTED_IPS=''
+    ports:
+      - "4444:4444"
+
+  locust-master:
     build: .
     ports:
      - "8089:8089"
     volumes:
       - ./:/mnt/locust
-    command: -f /mnt/locust/locustfile.py --master -H http://master:8089 --host https://awesome-web-app.vercel.app
+    command: -f /mnt/locust/locustfile.py --master -H http://locust-master:8089 --host https://awesome-web-app.vercel.app
 
-  worker:
+  locust-worker:
     build: .
     volumes:
       - ./:/mnt/locust
-    command: -f /mnt/locust/locustfile.py --worker --master-host master
+    command: -f /mnt/locust/locustfile.py --worker --master-host locust-master
