@@ -11,13 +11,17 @@ services:
   locust-master:
     build: .
     ports:
-     - "8089:8089"
+      - "8089:8089"
+    environment:
+      - WEBDRIVER_SERVER=http://webdriver:4444
     volumes:
       - ./:/mnt/locust
     command: -f /mnt/locust/locustfile.py --master -H http://locust-master:8089 --host https://awesome-web-app.vercel.app
 
   locust-worker:
     build: .
+    environment:
+      - WEBDRIVER_SERVER=http://webdriver:4444
     volumes:
       - ./:/mnt/locust
     command: -f /mnt/locust/locustfile.py --worker --master-host locust-master
