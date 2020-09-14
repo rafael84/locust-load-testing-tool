@@ -16,7 +16,7 @@ class BrowserUser(WebdriverUser):
         if self.meme_ids is None:
             return
         meme_id = random.choice(self.meme_ids)
-        self.client.go('/meme/{}'.format(meme_id))
+        self.client.go('/meme/{}'.format(meme_id), name='/meme/[id]')
 
     def on_start(self):
         #

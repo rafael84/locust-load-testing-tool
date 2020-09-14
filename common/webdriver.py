@@ -69,6 +69,3 @@ class WebdriverUser(User):
     def __init__(self, *args, **kwargs):
         super(WebdriverUser, self).__init__(*args, **kwargs)
         self.client = WebdriverClient(self.environment)
-
-    # def on_stop(self):
-    #     self.client.webdriver.quit()
