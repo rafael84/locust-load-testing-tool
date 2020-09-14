@@ -16,7 +16,7 @@ services:
       - WEBDRIVER_SERVER=http://webdriver:4444
     volumes:
       - ./:/mnt/locust
-    command: -f /mnt/locust/locustfile.py --master -H http://locust-master:8089 --host https://awesome-web-app.vercel.app
+    command: -f /mnt/locust/locustfiles/${LOCUSTFILE:-standard.py} --master -H http://locust-master:8089 --host https://awesome-web-app.vercel.app
 
   locust-worker:
     build: .
@@ -24,4 +24,4 @@ services:
       - WEBDRIVER_SERVER=http://webdriver:4444
     volumes:
       - ./:/mnt/locust
-    command: -f /mnt/locust/locustfile.py --worker --master-host locust-master
+    command: -f /mnt/locust/locustfiles/${LOCUSTFILE:-standard.py} --worker --master-host locust-master
