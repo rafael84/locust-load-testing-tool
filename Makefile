@@ -1,5 +1,6 @@
 run:
-	@docker-compose up \
+	@TARGET_HOST=http://awesome-web-app:3333 \
+		docker-compose up \
 		--scale locust-worker=3 \
 		--remove-orphans
 

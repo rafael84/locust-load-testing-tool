@@ -8,6 +8,11 @@ services:
     ports:
       - "4444:4444"
 
+  awesome-web-app:
+    build: ./awesome-web-app
+    ports:
+      - "3333:3333"
+
   locust-master:
     build: ./locust
     ports:
@@ -16,7 +21,7 @@ services:
       - WEBDRIVER_SERVER=http://webdriver:4444
     volumes:
       - ./locust:/mnt/locust
-    command: -f /mnt/locust/locustfiles/${LOCUSTFILE:-standard.py} --master -H http://locust-master:8089 --host https://awesome-web-app.vercel.app
+    command: -f /mnt/locust/locustfiles/${LOCUSTFILE:-standard.py} --master -H http://locust-master:8089 --host ${TARGET_HOST:-https://awesome-web-app.vercel.app}
 
   locust-worker:
     build: ./locust
