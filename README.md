@@ -11,7 +11,7 @@ It is built upon the fabulous [Next.js](https://nextjs.org) framework, which has
 
 ![Awesome Web App](./awesome-web-app/screenshot.png)
 
-Check the site here: [](https://awesome-web-app.vercel.app)
+Check the site here: [https://awesome-web-app.vercel.app](https://awesome-web-app.vercel.app)
 
 # Requirements
 
@@ -26,7 +26,7 @@ The run command is able to build the images when needed.
 
 # Run
 
-There are some run modes to chose from:
+I prepared two sligthly different approaches of testing, as follows:
 
 ## Webdriver client (interacts with a real web browser)
 
