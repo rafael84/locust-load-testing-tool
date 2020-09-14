@@ -1,5 +1,7 @@
 run:
-	@docker-compose up --scale worker=3 --remove-orphans
+	@docker-compose up \
+		--scale locust-worker=3 \
+		--remove-orphans
 
 build:
 	@docker-compose build

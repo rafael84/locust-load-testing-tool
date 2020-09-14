@@ -1,30 +1,27 @@
-import os
-from locust import HttpUser, task, between
-from selenium import webdriver
+import random
+from locust import task, between
+from common.webdriver import WebdriverUser
 
-def new_chrome_driver():
-    options = webdriver.ChromeOptions()
-    options.add_argument('--headless')
-    options.add_argument('--no-sandbox')
-    webdriver_server = os.environ.get('WEBDRIVER_SERVER')
-    return webdriver.Remote(command_executor=webdriver_server, options=options)
+class BrowserUser(WebdriverUser):
+    wait_time = between(2, 5)
 
-def host_path(client, path):
-    return '{}/{}'.format(client.environment.host, path)
-
-class Alice(HttpUser):
-    wait_time = between(1, 2)
-
-    def on_start(self):
-        self.webdriver = new_chrome_driver()
+    meme_ids = None
 
     @task
     def index_page(self):
-        self.client.get(host_path(self, "/"))
+        self.client.go('/')
 
-    @task
+    @task(5)
     def meme_page(self):
-        pass
+        if self.meme_ids is None:
+            return
+        meme_id = random.choice(self.meme_ids)
+        self.client.go('/meme/{}'.format(meme_id))
 
-    def on_stop(self):
-        self.webdriver.quit()
+    def on_start(self):
+        #
+        # load meme_ids from initial page
+        #
+        self.client.go('/')
+        cards = self.client.parse().find_all('div', class_='meme-card')
+        self.meme_ids = [card.attrs['memeid'] for card in cards]
